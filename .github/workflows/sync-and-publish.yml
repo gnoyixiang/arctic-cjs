@@ -1,0 +1,61 @@
+name: Sync and Publish
+
+on:
+  repository_dispatch:
+    types: [sync_release]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to sync (e.g., v3.6.0)"
+        required: true
+
+jobs:
+  sync-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Sync with upstream
+        run: |
+          git remote add upstream https://github.com/pilcrowonpaper/arctic.git
+          git fetch upstream
+          git merge upstream/main --allow-unrelated-histories
+          git push origin main
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish to npm
+        run: pnpm publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.version || github.event.client_payload.release.tag_name }}
+          name: ${{ github.event.inputs.version || github.event.client_payload.release.tag_name }}
+          body: |
+            This release syncs with Arctic ${{ github.event.inputs.version || github.event.client_payload.release.tag_name }}
+
+            Changes from original:
+            - Built and distributed as CommonJS modules
+            - Compatible with Node.js environments that don't support ES modules
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

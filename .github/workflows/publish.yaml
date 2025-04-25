@@ -6,6 +6,7 @@ on:
 
 jobs:
   build-and-publish:
+    if: github.event.release.author.login != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
