@@ -1,29 +1,36 @@
-name: "Publish v3"
-on: [push]
+name: Publish Package
 
-env:
-  AURI_GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  AURI_NPM_TOKEN: ${{secrets.AURI_NPM_TOKEN}}
+on:
+  release:
+    types: [created]
 
 jobs:
-  publish:
-    name: Publish package and release with Auri
+  build-and-publish:
     runs-on: ubuntu-latest
-    if: github.repository == 'pilcrowonpaper/arctic' && github.ref == 'refs/heads/main'
-    permissions:
-      contents: write
-      id-token: write
     steps:
-      - name: Setup actions
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
-      - name: Setup Node
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: "https://registry.npmjs.org/"
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Install dependencies
-        run: npm install
-      - name: Build and publish package and release
-        run: npx auri publish
+        run: pnpm install
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish to npm
+        run: pnpm publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
