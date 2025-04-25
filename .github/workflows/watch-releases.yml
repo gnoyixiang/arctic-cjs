@@ -1,0 +1,42 @@
+name: Watch Releases
+
+on:
+  schedule:
+    - cron: "0 * * * *" # Run every hour
+  workflow_dispatch:
+
+jobs:
+  check-releases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for new releases
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: releases } = await github.rest.repos.listReleases({
+              owner: 'pilcrowonpaper',
+              repo: 'arctic'
+            });
+
+            const latestRelease = releases[0];
+            if (!latestRelease) return;
+
+            // Get our releases
+            const { data: ourReleases } = await github.rest.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            const ourLatestRelease = ourReleases[0];
+
+            // If we don't have this release yet, trigger sync
+            if (!ourLatestRelease || ourLatestRelease.tag_name !== latestRelease.tag_name) {
+              await github.rest.repos.createDispatchEvent({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                event_type: 'sync_release',
+                client_payload: {
+                  release: latestRelease
+                }
+              });
+            }
