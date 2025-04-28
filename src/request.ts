@@ -151,6 +151,7 @@ export function createOAuth2RequestError(result: object): OAuth2RequestError {
 
 export class ArcticFetchError extends Error {
 	constructor(cause: unknown) {
+		// @ts-expect-error coming from original library
 		super("Failed to send request", {
 			cause
 		});

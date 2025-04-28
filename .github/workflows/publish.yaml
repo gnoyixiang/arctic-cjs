@@ -14,7 +14,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "18"
           registry-url: "https://registry.npmjs.org"
 
       - name: Install pnpm
@@ -30,6 +30,9 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: List dist directory contents
+        run: ls -R dist/
 
       - name: Publish to npm
         run: npm publish --no-git-checks
