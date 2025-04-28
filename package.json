@@ -1,7 +1,7 @@
 {
 	"name": "arctic-js",
 	"type": "commonjs",
-	"version": "3.6.0",
+	"version": "3.6.0-pr.1",
 	"description": "OAuth 2.0 clients for popular providers (forked for CJS support)",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
