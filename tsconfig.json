@@ -5,14 +5,13 @@
 		"declaration": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"target": "es2022",
+		"target": "ES2019",
 		"verbatimModuleSyntax": false,
-		"allowJs": true,
-		"resolveJsonModule": true,
 		"moduleDetection": "force",
+		"rootDir": "src",
 		"strict": true,
-		"moduleResolution": "NodeNext",
-		"module": "NodeNext"
+		"moduleResolution": "node",
+		"module": "ESNext"
 	},
 	"exclude": ["src/**/*.test.ts"]
 }
