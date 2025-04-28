@@ -1,4 +1,4 @@
-# Arctic-CJS
+# Arctic-JS
 
 **Documentation: [arcticjs.dev](https://arcticjs.dev)**
 
@@ -9,7 +9,7 @@ npm install arctic-cjs
 ```
 
 ```js
-const arctic = require("arctic-cjs");
+const arctic = require("arctic-js");
 
 const github = new arctic.GitHub(clientId, clientSecret);
 
@@ -23,7 +23,7 @@ const tokens = await github.validateAuthorizationCode(code);
 const accessToken = tokens.accessToken();
 ```
 
-> Arctic-CJS only supports providers that follow the OAuth 2.0 spec (including PKCE and token revocation).
+> Arctic-JS only supports providers that follow the OAuth 2.0 spec (including PKCE and token revocation).
 
 ## Differences from Original Arctic
 
@@ -35,7 +35,7 @@ This package is a fork of [Arctic](https://github.com/pilcrowonpaper/arctic) wit
 
 ## Semver
 
-Arctic-CJS follows the same versioning as the original Arctic package. While we aim to only introduce breaking changes in major versions, we may introduce them in a minor update if a provider updates their API in a non-backward compatible way. However, they will never be introduced in a patch update.
+Arctic-JS follows the same versioning as the original Arctic package. While we aim to only introduce breaking changes in major versions, we may introduce them in a minor update if a provider updates their API in a non-backward compatible way. However, they will never be introduced in a patch update.
 
 ## Supported providers
 

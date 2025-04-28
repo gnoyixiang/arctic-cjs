@@ -1,5 +1,5 @@
 {
-	"name": "arctic-cjs",
+	"name": "arctic-js",
 	"type": "commonjs",
 	"version": "3.6.0",
 	"description": "OAuth 2.0 clients for popular providers (forked for CJS support)",
