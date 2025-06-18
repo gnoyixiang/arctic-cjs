@@ -1,8 +1,10 @@
-name: Sync and Publish
+# DISABLED WORKFLOW - This workflow has been disabled in favor of manual publishing
+name: Sync and Publish (Disabled)
 
 on:
-  repository_dispatch:
-    types: [sync_release]
+  ## Disabled triggers
+  # repository_dispatch:
+  #   types: [sync_release]
   workflow_dispatch:
     inputs:
       version:
@@ -11,6 +13,8 @@ on:
 
 jobs:
   sync-and-publish:
+    # This condition will never be true, effectively disabling the workflow
+    if: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

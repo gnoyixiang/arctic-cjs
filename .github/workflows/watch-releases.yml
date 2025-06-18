@@ -1,12 +1,16 @@
-name: Watch Releases
+# DISABLED WORKFLOW - This workflow has been disabled in favor of manual publishing
+name: Watch Releases (Disabled)
 
 on:
-  schedule:
-    - cron: "0 * * * *" # Run every hour
+  # Disabled scheduled trigger
+  # schedule:
+  #   - cron: "0 * * * *" # Run every hour
   workflow_dispatch:
 
 jobs:
   check-releases:
+    # This condition will never be true, effectively disabling the workflow
+    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Check for new releases
