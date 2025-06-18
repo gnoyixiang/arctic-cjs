@@ -26,7 +26,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/pilcrowonpaper/arctic.git"
+		"url": "https://github.com/gnoyixiang/arctic-cjs.git"
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^25.0.7",
@@ -50,9 +50,9 @@
 		"@oslojs/jwt": "0.2.0"
 	},
 	"bugs": {
-		"url": "https://github.com/pilcrowonpaper/arctic/issues"
+		"url": "https://github.com/gnoyixiang/arctic-cjs/issues"
 	},
-	"homepage": "https://github.com/pilcrowonpaper/arctic#readme",
+	"homepage": "https://github.com/gnoyixiang/arctic-cjs#readme",
 	"directories": {
 		"doc": "docs"
 	}
